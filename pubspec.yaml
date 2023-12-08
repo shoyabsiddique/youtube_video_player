@@ -1,15 +1,25 @@
 name: youtube_video_player
-description: A new Flutter package project.
+description: Customizable Youtube Video Player.
 version: 0.0.1
-homepage:
+homepage: https://github.com/shoyabsiddique/youtube_video_player.git
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: ">=3.1.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
+  audio_video_progress_bar: ^2.0.1
   flutter:
     sdk: flutter
+  flutter_screenutil: ^5.9.0
+  flutter_svg: ^2.0.9
+  get: ^4.6.6
+  http: ^1.1.0
+  screen_brightness: ^0.2.2+1
+  subtitle: ^0.1.0
+  video_player: ^2.8.1
+  wakelock: ^0.6.2
+  youtube_explode_dart: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -21,10 +31,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/icons/
   #   - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see

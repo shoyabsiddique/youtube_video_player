@@ -1,0 +1,12 @@
+<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mute">
+<g id="Icon/close">
+<path id="Path 2" d="M22.357 14.3571L17.643 9.64302" stroke="white" stroke-linecap="round"/>
+<path id="Path 2_2" d="M22.357 9.64302L17.643 14.3571" stroke="white" stroke-linecap="round"/>
+</g>
+<g id="Icon/volume-off">
+<path id="Rectangle 2" fill-rule="evenodd" clip-rule="evenodd" d="M11.2928 5.70716C11.9228 5.07719 12.9999 5.52336 12.9999 6.41426L12.9999 17.5858C12.9999 18.4767 11.9228 18.9229 11.2928 18.2929L7.99995 15H3.99995C3.44766 15 2.99995 14.5523 2.99995 14L2.99995 10C2.99995 9.44776 3.44766 9.00005 3.99995 9.00005L7.99995 9.00005L11.2928 5.70716Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Oval 5" d="M14 13C14.5046 12.4954 14.5046 11.5046 14 11" stroke="white" stroke-linecap="round"/>
+</g>
+</g>
+</svg>
