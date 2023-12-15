@@ -13,11 +13,10 @@
 #       run: bundle audit
 #
 pre-commit:
-  commit-msg:
-    commands:
-      - name: Dart Commit Message Script
-        lint:
-          run: flutter pub run ./commit_message.dart
+  commands:
+    - name: Dart Commit Message Script
+      lint:
+        run: flutter pub run ./commit_message.dart
 #   parallel: true
 #   commands:
 #     eslint:
