@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '/video_player_controller.dart';
@@ -41,14 +42,17 @@ class Popup extends StatelessWidget {
                 ],
               ),
             ),
-            IconButton(
-                onPressed: () {
-                  Get.back();
+            GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
                 },
-                icon: const Icon(
-                  Icons.close,
+                child: SvgPicture.asset(
+                  "assets/icons/cross.svg",
+                  width: 25,
+                  height: 25,
+                  package: "youtube_video_player",
                   // color: Colors.white,
-                ))
+                )).paddingOnly(right: 20)
           ],
         ),
         const SizedBox(height: 15),
@@ -61,7 +65,8 @@ class Popup extends StatelessWidget {
           indicator: const BoxDecoration(
               image: DecorationImage(
                   alignment: Alignment.bottomCenter,
-                  image: AssetImage("assets/icons/indicator.png"))),
+                  image: AssetImage("assets/icons/indicator.png",
+                      package: "youtube_video_player"))),
           indicatorSize: TabBarIndicatorSize.tab,
           padding: EdgeInsets.zero,
           tabs: [

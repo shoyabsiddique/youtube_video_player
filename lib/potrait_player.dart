@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:video_player/video_player.dart';
@@ -32,6 +34,7 @@ class PotraitPlayer extends StatelessWidget {
     VideoPlayerSreenController controller =
         Get.put(VideoPlayerSreenController(link: link));
     double width = MediaQuery.of(context).size.width;
+    // File myAsset = File("packages/youtube_video_player/lib/assets/10for.svg");
     // controller.manifest =
     // controller.controller = VideoPlayerController.networkUrl(element.url,
     //     videoPlayerOptions: VideoPlayerOptions())
@@ -82,23 +85,29 @@ class PotraitPlayer extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            // TextButton(
-                                            //   child: SvgPicture.asset(
-                                            //     "assets/icons/10rev.svg",
-                                            //     width: 30,
-                                            //     height: 30,
-                                            //   ),
-                                            //   onPressed: () {
-                                            //     controller.controller.seekTo(controller
-                                            //             .controller.value.position -
-                                            //         const Duration(seconds: 10));
-                                            //   },
-                                            // ),
                                             TextButton(
-                                              child: controller.isPlaying.value
-                                                  ? const Icon(Icons.pause)
-                                                  : const Icon(
-                                                      Icons.play_arrow),
+                                              child: SvgPicture.asset(
+                                                "assets/icons/10rev.svg",
+                                                width: 30,
+                                                height: 30,
+                                                package: "youtube_video_player",
+                                              ),
+                                              onPressed: () {
+                                                controller.controller.seekTo(
+                                                    controller.controller.value
+                                                            .position -
+                                                        const Duration(
+                                                            seconds: 10));
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: SvgPicture.asset(
+                                                controller.isPlaying.value
+                                                    ? "assets/icons/pause_video.svg"
+                                                    : "assets/icons/play_video.svg",
+                                                width: 48,
+                                                package: "youtube_video_player",
+                                              ),
                                               onPressed: () {
                                                 controller.isPlaying.value =
                                                     !controller.isPlaying.value;
@@ -110,19 +119,21 @@ class PotraitPlayer extends StatelessWidget {
                                                         .play();
                                               },
                                             ),
-
-                                            // TextButton(
-                                            //   child: SvgPicture.asset(
-                                            //     "assets/icons/10for.svg",
-                                            //     width: 30,
-                                            //     height: 30,
-                                            //   ),
-                                            //   onPressed: () {
-                                            //     controller.controller.seekTo(controller
-                                            //             .controller.value.position +
-                                            //         const Duration(seconds: 10));
-                                            //   },
-                                            // ),
+                                            TextButton(
+                                              child: SvgPicture.asset(
+                                                  "assets/icons/10for.svg",
+                                                  width: 30,
+                                                  height: 30,
+                                                  package:
+                                                      "youtube_video_player"),
+                                              onPressed: () {
+                                                controller.controller.seekTo(
+                                                    controller.controller.value
+                                                            .position +
+                                                        const Duration(
+                                                            seconds: 10));
+                                              },
+                                            ),
                                           ],
                                         ),
                                       ), //Controls
@@ -235,8 +246,13 @@ class PotraitPlayer extends StatelessWidget {
                                                             .brightVisible
                                                             .value = false);
                                                   },
-                                                  child: const Icon(Icons
-                                                      .brightness_5_rounded)),
+                                                  child: SvgPicture.asset(
+                                                    "assets/icons/brightness.svg",
+                                                    package:
+                                                        "youtube_video_player",
+                                                    height: 20,
+                                                    width: 20,
+                                                  )),
                                             ),
                                           ],
                                         ),
@@ -328,12 +344,22 @@ class PotraitPlayer extends StatelessWidget {
                                                           .volVisible
                                                           .value = false);
                                                 },
-                                                child: Obx(() => !controller
-                                                        .isMute.value
-                                                    ? const Icon(
-                                                        Icons.volume_up_rounded)
-                                                    : const Icon(Icons
-                                                        .volume_off_rounded)),
+                                                child: Obx(() =>
+                                                    !controller.isMute.value
+                                                        ? SvgPicture.asset(
+                                                            "assets/icons/volume.svg",
+                                                            package:
+                                                                "youtube_video_player",
+                                                            width: 20,
+                                                            height: 20,
+                                                          )
+                                                        : SvgPicture.asset(
+                                                            "assets/icons/mute.svg",
+                                                            package:
+                                                                "youtube_video_player",
+                                                            width: 20,
+                                                            height: 20,
+                                                          )),
                                               ),
                                             ),
                                           ],
@@ -414,8 +440,13 @@ class PotraitPlayer extends StatelessWidget {
                                                     maximumSize:
                                                         const Size(50, 50),
                                                   ),
-                                                  child: const Icon(
-                                                      Icons.fullscreen)),
+                                                  child: SvgPicture.asset(
+                                                    "assets/icons/fullscreen.svg",
+                                                    width: 30,
+                                                    height: 30,
+                                                    package:
+                                                        "youtube_video_player",
+                                                  )),
                                               TextButton(
                                                   onPressed: () {
                                                     showModalBottomSheet(
@@ -439,8 +470,13 @@ class PotraitPlayer extends StatelessWidget {
                                                     maximumSize:
                                                         const Size(55, 55),
                                                   ),
-                                                  child: const Icon(
-                                                      Icons.settings)),
+                                                  child: SvgPicture.asset(
+                                                    "assets/icons/settings.svg",
+                                                    width: 30,
+                                                    height: 30,
+                                                    package:
+                                                        "youtube_video_player",
+                                                  )),
                                             ],
                                           )),
                                     ],

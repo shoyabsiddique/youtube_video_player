@@ -9,18 +9,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String? link;
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Video Player Example"),
       ),
-      body: const PotraitPlayer(
-          link: "https://www.youtube.com/watch?v=zjfQo5E1fPM",
-          aspectRatio: 4 / 3,
-          kColorBlack: Colors.black,
-          kColorPrimary: Colors.amber,
-          kColorWhite: Colors.white),
+      body: Column(
+        children: [
+          link != null
+              ? PotraitPlayer(
+                  link: link!,
+                  aspectRatio: 4 / 3,
+                  kColorBlack: Colors.black,
+                  kColorPrimary: Colors.amber,
+                  kColorWhite: Colors.white)
+              : Container(),
+          TextField(
+            controller: controller,
+            decoration: InputDecoration(
+                suffix: IconButton.filledTonal(
+                    onPressed: () {
+                      setState(() {
+                        link = controller.text;                      });
+                    },
+                    icon: Icon(Icons.add))),
+          )
+        ],
+      ),
     );
   }
 }

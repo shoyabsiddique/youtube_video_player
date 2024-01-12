@@ -75,9 +75,9 @@ class VideoPlayerSreenController extends GetxController
         await yt.videos.streamsClient.getManifest(getYouTubeVideoId(link));
     video = await yt.videos.get(getYouTubeVideoId(link));
     qualities.value = manifest!.muxed.toList();
-    manifest!.muxed.toList().first.qualityLabel == '144p'
-        ? qualities.remove(manifest!.muxed.toList().first)
-        : null;
+    if (manifest!.muxed.toList().first.qualityLabel == '144p') {
+      qualities.remove(manifest!.muxed.toList().first);
+    }
     MuxedStreamInfo streamInfo = manifest!.muxed.bestQuality;
     var url = streamInfo.url;
     controller = VideoPlayerController.networkUrl(

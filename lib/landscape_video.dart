@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
@@ -24,10 +25,10 @@ class LandscapeVideo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (val) {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-        return true;
       },
       child: Obx(
         () => GestureDetector(
@@ -69,22 +70,31 @@ class LandscapeVideo extends StatelessWidget {
                               left: 2,
                               top: 2,
                               child: TextButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  child: const Icon(Icons.arrow_back)),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: SvgPicture.asset(
+                                  "assets/icons/back_icon.svg",
+                                  package: "youtube_video_player",
+                                ),
+                              ),
                             ),
                             Positioned(
-                                left: 30,
+                                left: 60,
                                 top: 7,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      controller.video!.title,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: width >= 600 ? 10 : 8),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      child: Text(
+                                        controller.video!.title,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: width >= 600 ? 15 : 12),
+                                      ),
                                     ),
                                     Text(
                                       controller.video!.author,
@@ -101,7 +111,12 @@ class LandscapeVideo extends StatelessWidget {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     TextButton(
-                                      child: const Icon(Icons.replay_10),
+                                      child: SvgPicture.asset(
+                                        "assets/icons/10rev.svg",
+                                        width: 30,
+                                        height: 30,
+                                        package: "youtube_video_player",
+                                      ),
                                       onPressed: () {
                                         controller.controller.seekTo(controller
                                                 .controller.value.position -
@@ -109,9 +124,13 @@ class LandscapeVideo extends StatelessWidget {
                                       },
                                     ),
                                     TextButton(
-                                      child: controller.isPlaying.value
-                                          ? const Icon(Icons.pause)
-                                          : const Icon(Icons.play_arrow),
+                                      child: SvgPicture.asset(
+                                        controller.isPlaying.value
+                                            ? "assets/icons/pause_video.svg"
+                                            : "assets/icons/play_video.svg",
+                                        width: 48,
+                                        package: "youtube_video_player",
+                                      ),
                                       onPressed: () {
                                         controller.isPlaying.value =
                                             !controller.isPlaying.value;
@@ -121,7 +140,11 @@ class LandscapeVideo extends StatelessWidget {
                                       },
                                     ),
                                     TextButton(
-                                      child: const Icon(Icons.forward_10),
+                                      child: SvgPicture.asset(
+                                          "assets/icons/10for.svg",
+                                          width: 30,
+                                          height: 30,
+                                          package: "youtube_video_player"),
                                       onPressed: () {
                                         controller.controller.seekTo(controller
                                                 .controller.value.position +
@@ -133,7 +156,7 @@ class LandscapeVideo extends StatelessWidget {
                               ),
                             ), //Controls
                             Positioned(
-                              bottom: 180,
+                              bottom: 100,
                               left: 30,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -183,26 +206,29 @@ class LandscapeVideo extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: InkWell(
-                                      onTap: () {
-                                        controller.brightVisible.value =
-                                            !controller.brightVisible.value;
-                                        Future.delayed(
-                                            const Duration(seconds: 5),
-                                            () => controller
-                                                .brightVisible.value = false);
-                                      },
-                                      child: const Icon(
-                                          Icons.brightness_5_rounded),
-                                    ),
+                                    width: 55,
+                                    height: 55,
+                                    child: TextButton(
+                                        onPressed: () {
+                                          controller.brightVisible.value =
+                                              !controller.brightVisible.value;
+                                          Future.delayed(
+                                              const Duration(seconds: 5),
+                                              () => controller
+                                                  .brightVisible.value = false);
+                                        },
+                                        child: SvgPicture.asset(
+                                          "assets/icons/brightness.svg",
+                                          package: "youtube_video_player",
+                                          height: 20,
+                                          width: 20,
+                                        )),
                                   ),
                                 ],
                               ),
                             ),
                             Positioned(
-                              bottom: 180,
+                              bottom: 100,
                               right: 30,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -259,10 +285,10 @@ class LandscapeVideo extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: InkWell(
-                                      onTap: () {
+                                    width: 55,
+                                    height: 55,
+                                    child: TextButton(
+                                      onPressed: () {
                                         controller.volVisible.value =
                                             !controller.volVisible.value;
                                         Future.delayed(
@@ -271,9 +297,18 @@ class LandscapeVideo extends StatelessWidget {
                                                 false);
                                       },
                                       child: Obx(() => !controller.isMute.value
-                                          ? const Icon(Icons.volume_up_rounded)
-                                          : const Icon(
-                                              Icons.volume_off_rounded)),
+                                          ? SvgPicture.asset(
+                                              "assets/icons/volume.svg",
+                                              package: "youtube_video_player",
+                                              width: 20,
+                                              height: 20,
+                                            )
+                                          : SvgPicture.asset(
+                                              "assets/icons/mute.svg",
+                                              package: "youtube_video_player",
+                                              width: 20,
+                                              height: 20,
+                                            )),
                                     ),
                                   ),
                                 ],
@@ -383,18 +418,22 @@ class LandscapeVideo extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     TextButton(
-                                      onPressed: () {
-                                        _controller.lock.value =
-                                            !_controller.lock.value;
-                                        _controller.isVisible.value = false;
-                                      },
-                                      style: TextButton.styleFrom(
-                                        fixedSize: const Size(30, 30),
-                                        minimumSize: const Size(30, 30),
-                                        maximumSize: const Size(30, 30),
-                                      ),
-                                      child: const Icon(Icons.lock),
-                                    ),
+                                        onPressed: () {
+                                          _controller.lock.value =
+                                              !_controller.lock.value;
+                                          _controller.isVisible.value = false;
+                                        },
+                                        style: TextButton.styleFrom(
+                                          fixedSize: const Size(30, 30),
+                                          minimumSize: const Size(30, 30),
+                                          maximumSize: const Size(30, 30),
+                                        ),
+                                        child: SvgPicture.asset(
+                                          "assets/icons/lock.svg",
+                                          width: 30,
+                                          height: 30,
+                                          package: "youtube_video_player",
+                                        )),
                                     TextButton(
                                       onPressed: () {
                                         Get.back();
@@ -404,7 +443,12 @@ class LandscapeVideo extends StatelessWidget {
                                         minimumSize: const Size(35, 35),
                                         maximumSize: const Size(35, 35),
                                       ),
-                                      child: const Icon(Icons.fullscreen_exit),
+                                      child: SvgPicture.asset(
+                                        "assets/icons/minimize.svg",
+                                        width: 50,
+                                        height: 50,
+                                        package: "youtube_video_player",
+                                      ),
                                     ),
                                   ],
                                 )),
@@ -459,17 +503,6 @@ class LandscapeVideo extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.play_arrow_rounded),
-                                          SizedBox(
-                                            width: 4,
-                                          ),
-                                        ],
-                                      )
                                     ],
                                   ),
                                 ))
@@ -492,7 +525,12 @@ class LandscapeVideo extends StatelessWidget {
                             minimumSize: const Size(35, 35),
                             maximumSize: const Size(35, 35),
                           ),
-                          child: const Icon(Icons.minimize_rounded),
+                          child: SvgPicture.asset(
+                            "assets/icons/lock-open.svg",
+                            width: 30,
+                            height: 30,
+                            package: "youtube_video_player",
+                          ),
                         ),
                       ),
                     ),
