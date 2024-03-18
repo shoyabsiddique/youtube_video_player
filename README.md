@@ -1,6 +1,7 @@
 # Flutter YouTube Player
 
 A Flutter package for embedding a YouTube player with customizable controls and features.
+![Alt text](screenshot.png)
 
 ## Installation
 

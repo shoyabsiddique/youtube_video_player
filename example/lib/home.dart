@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
           link != null
               ? PotraitPlayer(
                   link: link!,
-                  aspectRatio: 4 / 3,
+                  aspectRatio: 16/9,
                   kColorBlack: Colors.black,
                   kColorPrimary: Colors.amber,
                   kColorWhite: Colors.white)
@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
                       setState(() {
                         link = controller.text;                      });
                     },
-                    icon: Icon(Icons.add))),
+                    icon: const Icon(Icons.add))),
           )
         ],
       ),
