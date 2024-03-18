@@ -4,7 +4,9 @@ version: 0.1.0
 homepage: https://github.com/shoyabsiddique/youtube_video_player
 repository: https://github.com/shoyabsiddique/youtube_video_player
 publish_to: null
-
+screenshots:
+  - description: "Video player for youtube link"
+    path: screenshot.png
 environment:
   sdk: ">=3.1.0 <4.0.0"
   flutter: ">=3.6.3"
