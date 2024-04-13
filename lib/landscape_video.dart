@@ -13,12 +13,15 @@ import 'landscape_controller.dart';
 import 'video_player_controller.dart';
 
 class LandscapeVideo extends StatelessWidget {
-  LandscapeVideo(
-      {Key? key, this.kColorWhite, this.kColorPrimary, this.kColorBlack})
-      : super(key: key);
-  final Color? kColorWhite;
-  final Color? kColorPrimary;
-  final Color? kColorBlack;
+  LandscapeVideo({
+    Key? key,
+    this.controlsColor,
+    this.primaryColor,
+    this.textColor,
+  }) : super(key: key);
+  final Color? controlsColor;
+  final Color? primaryColor;
+  final Color? textColor;
   final VideoPlayerSreenController controller =
       Get.find<VideoPlayerSreenController>();
   final LandscapeController _controller = Get.put(LandscapeController());
@@ -29,6 +32,7 @@ class LandscapeVideo extends StatelessWidget {
       canPop: true,
       onPopInvoked: (val) {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+        Get.delete<LandscapeController>();
       },
       child: Obx(
         () => GestureDetector(
@@ -50,9 +54,9 @@ class LandscapeVideo extends StatelessWidget {
                       () => controller.caption.isNotEmpty
                           ? ClosedCaption(
                               text: controller.currentSubtitle?.data,
-                              textStyle: const TextStyle(
+                              textStyle: TextStyle(
                                 fontSize: 15,
-                                color: Colors.white,
+                                color: textColor ?? Colors.white,
                               ),
                             )
                           : const SizedBox.shrink(),
@@ -72,10 +76,12 @@ class LandscapeVideo extends StatelessWidget {
                               child: TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
+                                  Get.delete<LandscapeController>();
                                 },
                                 child: SvgPicture.asset(
                                   "assets/icons/back_icon.svg",
                                   package: "youtube_video_player",
+                                  color: textColor,
                                 ),
                               ),
                             ),
@@ -98,8 +104,8 @@ class LandscapeVideo extends StatelessWidget {
                                     ),
                                     Text(
                                       controller.video!.author,
-                                      style: const TextStyle(
-                                          color: Colors.white54),
+                                      style: TextStyle(
+                                          color: textColor ?? Colors.white54),
                                     )
                                   ],
                                 )),
@@ -115,6 +121,7 @@ class LandscapeVideo extends StatelessWidget {
                                         "assets/icons/10rev.svg",
                                         width: 30,
                                         height: 30,
+                                        color: controlsColor,
                                         package: "youtube_video_player",
                                       ),
                                       onPressed: () {
@@ -129,6 +136,7 @@ class LandscapeVideo extends StatelessWidget {
                                             ? "assets/icons/pause_video.svg"
                                             : "assets/icons/play_video.svg",
                                         width: 48,
+                                        color: controlsColor,
                                         package: "youtube_video_player",
                                       ),
                                       onPressed: () {
@@ -144,6 +152,7 @@ class LandscapeVideo extends StatelessWidget {
                                           "assets/icons/10for.svg",
                                           width: 30,
                                           height: 30,
+                                          color: controlsColor,
                                           package: "youtube_video_player"),
                                       onPressed: () {
                                         controller.controller.seekTo(controller
@@ -173,16 +182,20 @@ class LandscapeVideo extends StatelessWidget {
                                         //     left: 20,
                                         //     right: 18),
                                         child: SliderTheme(
-                                          data: const SliderThemeData(
+                                          data: SliderThemeData(
                                               trackHeight: 2,
-                                              thumbShape: RoundSliderThumbShape(
-                                                  enabledThumbRadius: 6),
+                                              thumbShape:
+                                                  const RoundSliderThumbShape(
+                                                      enabledThumbRadius: 6),
                                               overlayShape:
-                                                  RoundSliderOverlayShape(
+                                                  const RoundSliderOverlayShape(
                                                       overlayRadius: 1),
-                                              thumbColor: Colors.white,
-                                              activeTrackColor: Colors.white,
-                                              inactiveTrackColor: Colors.grey),
+                                              thumbColor:
+                                                  primaryColor ?? Colors.white,
+                                              activeTrackColor:
+                                                  primaryColor ?? Colors.white,
+                                              inactiveTrackColor:
+                                                  controlsColor ?? Colors.grey),
                                           child: Slider(
                                             value:
                                                 controller.setBrightness.value,
@@ -220,6 +233,7 @@ class LandscapeVideo extends StatelessWidget {
                                         child: SvgPicture.asset(
                                           "assets/icons/brightness.svg",
                                           package: "youtube_video_player",
+                                          color: controlsColor,
                                           height: 20,
                                           width: 20,
                                         )),
@@ -245,16 +259,19 @@ class LandscapeVideo extends StatelessWidget {
                                         //     left: 20,
                                         //     right: 18),
                                         child: SliderTheme(
-                                          data: const SliderThemeData(
+                                          data: SliderThemeData(
                                               trackHeight: 2,
                                               thumbShape: RoundSliderThumbShape(
                                                   enabledThumbRadius: 6),
                                               overlayShape:
                                                   RoundSliderOverlayShape(
                                                       overlayRadius: 1),
-                                              thumbColor: Colors.white,
-                                              activeTrackColor: Colors.white,
-                                              inactiveTrackColor: Colors.grey),
+                                              thumbColor:
+                                                  primaryColor ?? Colors.white,
+                                              activeTrackColor:
+                                                  primaryColor ?? Colors.white,
+                                              inactiveTrackColor:
+                                                  controlsColor ?? Colors.grey),
                                           child: Slider(
                                             value:
                                                 controller.setVolumeValue.value,
@@ -300,12 +317,14 @@ class LandscapeVideo extends StatelessWidget {
                                           ? SvgPicture.asset(
                                               "assets/icons/volume.svg",
                                               package: "youtube_video_player",
+                                              color: controlsColor,
                                               width: 20,
                                               height: 20,
                                             )
                                           : SvgPicture.asset(
                                               "assets/icons/mute.svg",
                                               package: "youtube_video_player",
+                                              color: controlsColor,
                                               width: 20,
                                               height: 20,
                                             )),
@@ -329,8 +348,8 @@ class LandscapeVideo extends StatelessWidget {
                                 //         enabledThumbRadius: 3),
                                 //     overlayShape: RoundSliderOverlayShape(
                                 //         overlayRadius: 4),
-                                //     thumbColor: kColorPrimary,
-                                //     activeTrackColor: kColorPrimary,
+                                //     thumbColor: primaryColor,
+                                //     activeTrackColor: primaryColor,
                                 //     inactiveTrackColor: Colors.grey,
                                 //     showValueIndicator:
                                 //         ShowValueIndicator.always,
@@ -359,8 +378,8 @@ class LandscapeVideo extends StatelessWidget {
                                     barHeight: 2,
                                     baseBarColor: Colors.white,
                                     bufferedBarColor: Colors.grey[300],
-                                    progressBarColor: kColorPrimary,
-                                    thumbColor: kColorPrimary,
+                                    progressBarColor: primaryColor,
+                                    thumbColor: primaryColor,
                                     thumbRadius: 5,
                                     progress: controller.position.value,
                                     total: controller.controller.value.duration,
@@ -371,7 +390,7 @@ class LandscapeVideo extends StatelessWidget {
                                         controller.controller.seekTo(value),
                                     timeLabelTextStyle: TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        color: kColorWhite,
+                                        color: textColor,
                                         fontSize: 6),
                                     barCapShape: BarCapShape.round,
                                     timeLabelPadding: 5,
@@ -432,6 +451,7 @@ class LandscapeVideo extends StatelessWidget {
                                           "assets/icons/lock.svg",
                                           width: 30,
                                           height: 30,
+                                          color: controlsColor,
                                           package: "youtube_video_player",
                                         )),
                                     TextButton(
@@ -447,6 +467,7 @@ class LandscapeVideo extends StatelessWidget {
                                         "assets/icons/minimize.svg",
                                         width: 50,
                                         height: 50,
+                                        color: controlsColor,
                                         package: "youtube_video_player",
                                       ),
                                     ),
@@ -538,7 +559,7 @@ class LandscapeVideo extends StatelessWidget {
                 )
               : Center(
                   child: CircularProgressIndicator(
-                    color: kColorPrimary,
+                    color: primaryColor,
                   ),
                 ),
         ),
@@ -569,7 +590,7 @@ class LandscapeVideo extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
-                color: kColorWhite),
+                color: textColor),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -597,7 +618,7 @@ class LandscapeVideo extends StatelessWidget {
                   height: 2,
                 ),
                 TabBar(
-                  labelColor: kColorPrimary,
+                  labelColor: primaryColor,
                   unselectedLabelColor: Colors.white,
                   labelStyle:
                       const TextStyle(fontWeight: FontWeight.w600, fontSize: 8),
@@ -641,7 +662,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //         controller.qualityGroupValue.value =
                                 //             val!;
                                 //       },
-                                //       activeColor: kColorPrimary,
+                                //       activeColor: primaryColor,
                                 //       value: "Full HD upto 1080p",
                                 //       title: Text.rich(
                                 //         TextSpan(text: "Full HD ", children: [
@@ -654,7 +675,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "Full HD upto 1080p"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                         ithOpacity(0.5)
                                 //                     : Colors.black
                                 //                         ithOpacity(0.5),
@@ -666,7 +687,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "Full HD upto 1080p"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                     : Colors.black,
                                 //                 fontWeight: FontWeight600),
                                 //       )),
@@ -680,7 +701,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //         controller.qualityGroupValue.value =
                                 //             val!;
                                 //       },
-                                //       activeColor: kColorPrimary,
+                                //       activeColor: primaryColor,
                                 //       value: "HD upto 1080p",
                                 //       title: Text.rich(
                                 //         TextSpan(text: "HD ", children: [
@@ -693,7 +714,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "HD upto 720p"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                         ithOpacity(0.5)
                                 //                     : Colors.black
                                 //                         ithOpacity(0.5),
@@ -705,7 +726,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "HD upto 720p"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                     : Colors.black,
                                 //                 fontWeight: FontWeight600),
                                 //       )),
@@ -719,7 +740,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //         controller.qualityGroupValue.value =
                                 //             val!;
                                 //       },
-                                //       activeColor: kColorPrimary,
+                                //       activeColor: primaryColor,
                                 //       value: "SD upto 480p",
                                 //       title: Text.rich(
                                 //         TextSpan(text: "SD ", children: [
@@ -732,7 +753,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "SD upto 480p"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                         ithOpacity(0.5)
                                 //                     : Colors.black
                                 //                         ithOpacity(0.5),
@@ -744,7 +765,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "SD upto 480p"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                     : Colors.black,
                                 //                 fontWeight: FontWeight600),
                                 //       )),
@@ -758,7 +779,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //         controller.qualityGroupValue.value =
                                 //             val!;
                                 //       },
-                                //       activeColor: kColorPrimary,
+                                //       activeColor: primaryColor,
                                 //       value: "Low Data Saver",
                                 //       title: Text.rich(
                                 //         TextSpan(text: "Low ", children: [
@@ -771,7 +792,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "Low Data Saver"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                         ithOpacity(0.5)
                                 //                     : Colors.black
                                 //                         ithOpacity(0.5),
@@ -783,7 +804,7 @@ class LandscapeVideo extends StatelessWidget {
                                 //                             .qualityGroupValue
                                 //                             .value ==
                                 //                         "Low Data Saver"
-                                //                     ? kColorPrimary
+                                //                     ? primaryColor
                                 //                     : Colors.black,
                                 //                 fontWeight: FontWeight600),
                                 //       )),
@@ -848,7 +869,7 @@ class LandscapeVideo extends StatelessWidget {
                                               VisualDensity.minimumDensity,
                                           horizontal:
                                               VisualDensity.minimumDensity),
-                                      activeColor: kColorPrimary,
+                                      activeColor: primaryColor,
                                       value: quality,
                                       title: Text.rich(
                                         TextSpan(
@@ -882,7 +903,7 @@ class LandscapeVideo extends StatelessWidget {
                                                                 .qualityGroupValue
                                                                 .value ==
                                                             quality
-                                                        ? kColorPrimary!
+                                                        ? primaryColor!
                                                             .withOpacity(0.5)
                                                         : Colors.black
                                                             .withOpacity(0.5),
@@ -892,7 +913,7 @@ class LandscapeVideo extends StatelessWidget {
                                             color: controller.qualityGroupValue
                                                         .value ==
                                                     quality
-                                                ? kColorPrimary
+                                                ? primaryColor
                                                 : Colors.black,
                                             fontSize: 10,
                                             fontWeight: FontWeight.w600),
@@ -913,12 +934,12 @@ class LandscapeVideo extends StatelessWidget {
                                     },
                                     groupValue: controller.playback.value,
                                     value: 4,
-                                    activeColor: kColorPrimary,
+                                    activeColor: primaryColor,
                                     title: Text("Normal",
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 4
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   RadioListTile(
@@ -933,7 +954,7 @@ class LandscapeVideo extends StatelessWidget {
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 1
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   RadioListTile(
@@ -942,14 +963,14 @@ class LandscapeVideo extends StatelessWidget {
                                       controller.controller
                                           .setPlaybackSpeed(0.5);
                                     },
-                                    activeColor: kColorPrimary,
+                                    activeColor: primaryColor,
                                     value: 2,
                                     groupValue: controller.playback.value,
                                     title: Text("0.5x",
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 2
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   RadioListTile(
@@ -962,12 +983,12 @@ class LandscapeVideo extends StatelessWidget {
                                     value: 3,
                                     controlAffinity:
                                         ListTileControlAffinity.leading,
-                                    activeColor: kColorPrimary,
+                                    activeColor: primaryColor,
                                     title: Text("0.75x",
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 3
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   RadioListTile(
@@ -978,12 +999,12 @@ class LandscapeVideo extends StatelessWidget {
                                     },
                                     groupValue: controller.playback.value,
                                     value: 5,
-                                    activeColor: kColorPrimary,
+                                    activeColor: primaryColor,
                                     title: Text("1.25x",
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 5
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   RadioListTile(
@@ -994,12 +1015,12 @@ class LandscapeVideo extends StatelessWidget {
                                     },
                                     groupValue: controller.playback.value,
                                     value: 6,
-                                    activeColor: kColorPrimary,
+                                    activeColor: primaryColor,
                                     title: Text("1.5x",
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 6
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   RadioListTile(
@@ -1010,12 +1031,12 @@ class LandscapeVideo extends StatelessWidget {
                                     },
                                     groupValue: controller.playback.value,
                                     value: 7,
-                                    activeColor: kColorPrimary,
+                                    activeColor: primaryColor,
                                     title: Text("1.75x",
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 7
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   RadioListTile(
@@ -1025,12 +1046,12 @@ class LandscapeVideo extends StatelessWidget {
                                     },
                                     groupValue: controller.playback.value,
                                     value: 8,
-                                    activeColor: kColorPrimary,
+                                    activeColor: primaryColor,
                                     title: Text("2x",
                                         style: TextStyle(
                                             color:
                                                 controller.playback.value == 8
-                                                    ? kColorPrimary
+                                                    ? primaryColor
                                                     : Colors.black)),
                                   ),
                                   const SizedBox(

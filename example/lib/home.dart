@@ -22,10 +22,10 @@ class _HomeState extends State<Home> {
           link != null
               ? PotraitPlayer(
                   link: link!,
-                  aspectRatio: 16/9,
-                  kColorBlack: Colors.black,
-                  kColorPrimary: Colors.amber,
-                  kColorWhite: Colors.white)
+                  aspectRatio: 16 / 9,
+                  controlsColor: Colors.greenAccent,
+                  primaryColor: Colors.red,
+                  textColor: Colors.grey)
               : Container(),
           TextField(
             controller: controller,
