@@ -33,9 +33,10 @@ class _HomeState extends State<Home> {
                 suffix: IconButton.filledTonal(
                     onPressed: () {
                       setState(() {
-                        link = controller.text;                      });
+                        link = controller.text;
+                      });
                     },
-                    icon: Icon(Icons.add))),
+                    icon: const Icon(Icons.add))),
           )
         ],
       ),

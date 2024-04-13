@@ -436,7 +436,7 @@ class LandscapeVideo extends StatelessWidget {
                                         )),
                                     TextButton(
                                       onPressed: () {
-                                        Get.back();
+                                        Navigator.pop(context);
                                       },
                                       style: TextButton.styleFrom(
                                         fixedSize: const Size(35, 35),
@@ -585,7 +585,7 @@ class LandscapeVideo extends StatelessWidget {
                     ),
                     IconButton(
                         onPressed: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         icon: const Icon(
                           Icons.close,
