@@ -5,12 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:youtube_video_player/landscape_controller.dart';
-// import '../../const/colors/colors.dart';
-// import '../../const/constants/constants.dart';
 import 'video_player_controller.dart';
-// import '../../models/video_details/video_details_model.dart';
 import 'landscape_player_screen.dart';
 import 'popop.dart';
 
@@ -30,7 +27,7 @@ class PotraitPlayer extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    Wakelock.enable();
+    WakelockPlus.enable();
     VideoPlayerSreenController controller =
         Get.put(VideoPlayerSreenController(link: link));
     double width = MediaQuery.of(context).size.width;
