@@ -50,17 +50,17 @@ class LandscapeVideo extends StatelessWidget {
                   // clipBehavior: Clip.antiAlias,
                   children: [
                     VideoPlayer(controller.controller), //Video Player
-                    Obx(
-                      () => controller.caption.isNotEmpty
-                          ? ClosedCaption(
-                              text: controller.currentSubtitle?.data,
-                              textStyle: TextStyle(
-                                fontSize: 15,
-                                color: textColor ?? Colors.white,
-                              ),
-                            )
-                          : const SizedBox.shrink(),
-                    ), //Captions
+                    // Obx(
+                    //   () => controller.caption.isNotEmpty
+                    //       ? ClosedCaption(
+                    //           text: controller.currentSubtitle?.data,
+                    //           textStyle: TextStyle(
+                    //             fontSize: 15,
+                    //             color: textColor ?? Colors.white,
+                    //           ),
+                    //         )
+                    //       : const SizedBox.shrink(),
+                    // ), //Captions
                     Visibility(
                       visible: _controller.isVisible.value,
                       // visible: true,

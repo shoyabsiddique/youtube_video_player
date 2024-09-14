@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:youtube_video_player/landscape_controller.dart';
 // import '../../const/colors/colors.dart';
 // import '../../const/constants/constants.dart';
@@ -20,8 +20,11 @@ class PotraitPlayer extends StatelessWidget {
   final Color? controlsColor;
   final Color? primaryColor;
   final Color? textColor;
+  final bool? autoPlay;
+
   const PotraitPlayer({
     super.key,
+    this.autoPlay,
     required this.link,
     required this.aspectRatio,
     this.controlsColor,
@@ -30,9 +33,9 @@ class PotraitPlayer extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    Wakelock.enable();
+    WakelockPlus.enable();
     VideoPlayerSreenController controller =
-        Get.put(VideoPlayerSreenController(link: link));
+        Get.put(VideoPlayerSreenController(link: link, autoPlay : autoPlay!));
     double width = MediaQuery.of(context).size.width;
     // File myAsset = File("packages/youtube_video_player/lib/assets/10for.svg");
     // controller.manifest =
@@ -62,16 +65,16 @@ class PotraitPlayer extends StatelessWidget {
                             fit: StackFit.passthrough,
                             children: [
                               VideoPlayer(controller.controller), //Video Player
-                              Obx(
-                                () => controller.caption.isNotEmpty
-                                    ? ClosedCaption(
-                                        text: controller.currentSubtitle?.data,
-                                        textStyle: TextStyle(
-                                            fontSize: 15,
-                                            color: textColor ?? Colors.white),
-                                      )
-                                    : const SizedBox.shrink(),
-                              ), //Captions
+                              // Obx(
+                              //   () => controller.caption.isNotEmpty
+                              //       ? ClosedCaption(
+                              //           text: controller.currentSubtitle?.data,
+                              //           textStyle: TextStyle(
+                              //               fontSize: 15,
+                              //               color: textColor ?? Colors.white),
+                              //         )
+                              //       : const SizedBox.shrink(),
+                              // ), //Captions
                               Visibility(
                                 visible: controller.isVisible.value,
                                 // visible: true,

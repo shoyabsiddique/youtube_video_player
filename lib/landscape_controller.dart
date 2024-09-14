@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:subtitle/subtitle.dart';
+// import 'package:subtitle/subtitle.dart';
 import 'package:video_player/video_player.dart';
 
 class LandscapeController extends GetxController with WidgetsBindingObserver {
@@ -17,7 +17,7 @@ class LandscapeController extends GetxController with WidgetsBindingObserver {
   var caption = [].obs;
   var subVal = 0.obs;
   var lock = false.obs;
-  Subtitle? currentSubtitle;
+  // Subtitle? currentSubtitle;
   var appLifeCycleState = AppLifecycleState;
   // Rx<Widget> toPresent = LandscapeVideo().obs;
   @override

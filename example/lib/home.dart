@@ -9,7 +9,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String? link;
+  String? link = "https://youtu.be/7bRloz4KmR4?si=Cu7zM7DUoqOf5Umv";
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,7 @@ class _HomeState extends State<Home> {
         children: [
           link != null
               ? PotraitPlayer(
+                  autoPlay: false,
                   link: link!,
                   aspectRatio: 16 / 9,
                   controlsColor: Colors.greenAccent,

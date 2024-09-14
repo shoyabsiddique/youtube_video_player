@@ -20,9 +20,10 @@ dependencies:
   get: ^4.6.6
   http: ^1.1.0
   screen_brightness: ^0.2.2+1
-  subtitle:
+  # subtitle:
   video_player: ^2.8.1
-  wakelock: ^0.6.2
+  # wakelock: ^0.6.2
+  wakelock_plus: ^1.2.8
   youtube_explode_dart: ^2.0.2
 
 dev_dependencies:
